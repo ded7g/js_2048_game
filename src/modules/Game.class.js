@@ -222,8 +222,7 @@ export default class Game {
       return false;
     }
 
-    // eslint-disable-next-line no-shadow
-    const before = this._clone(this._board);
+    const prevBoard = this._clone(this._board);
     let working = this._clone(this._board);
 
     switch (dir) {
@@ -261,14 +260,18 @@ export default class Game {
         break;
     }
 
-    if (!this._boardEquals(before, working)) {
+    if (!this._boardEquals(prevBoard, working)) {
       this._board = working;
-      this._score += gainedTotal;
+
+      if (gainedTotal > 0) {
+        this._score += gainedTotal;
+      }
       this._addRandomTile();
       this._updateStatus();
 
       return true;
     }
+
     this._updateStatus();
 
     return false;

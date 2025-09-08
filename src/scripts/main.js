@@ -53,6 +53,7 @@ start.addEventListener('click', () => {
   if (game.getStatus() === 'idle') {
     game.start();
     start.textContent = 'Restart';
+    start.classList.add('restart');
   } else {
     game.restart();
   }
