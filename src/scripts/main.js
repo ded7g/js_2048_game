@@ -4,14 +4,15 @@ import Game from '../modules/Game.class.js';
 
 const game = new Game();
 
-const fieldEl = document.querySelector('.game-field tbody');
-const scoreEl = document.querySelector('.game-score');
-const startBtn = document.querySelector('.start');
+const field = document.querySelector('.game-field tbody');
+const score = document.querySelector('.game-score');
+const start = document.querySelector('.start');
 
 function render() {
   const state = game.getState();
+  const currentStatus = game.getStatus();
 
-  fieldEl.innerHTML = '';
+  field.innerHTML = '';
 
   state.forEach((row) => {
     const rowEl = document.createElement('tr');
@@ -28,30 +29,30 @@ function render() {
       rowEl.appendChild(cellEl);
     });
 
-    fieldEl.appendChild(rowEl);
+    field.appendChild(rowEl);
   });
 
-  scoreEl.textContent = game.getScore();
+  score.textContent = game.getScore();
 
   const messageWin = document.querySelector('.message-win');
   const messageLose = document.querySelector('.message-lose');
   const messageStart = document.querySelector('.message-start');
 
-  messageWin.classList.toggle('hidden', status !== 'win');
-  messageLose.classList.toggle('hidden', status !== 'lose');
-  messageStart.classList.toggle('hidden', status !== 'idle');
+  messageWin.classList.toggle('hidden', currentStatus !== 'win');
+  messageLose.classList.toggle('hidden', currentStatus !== 'lose');
+  messageStart.classList.toggle('hidden', currentStatus !== 'idle');
 
-  if (status === 'win') {
+  if (currentStatus === 'win') {
     alert('You win! 🎉');
-  } else if (status === 'lose') {
+  } else if (currentStatus === 'lose') {
     alert('Game over! 💀');
   }
 }
 
-startBtn.addEventListener('click', () => {
+start.addEventListener('click', () => {
   if (game.getStatus() === 'idle') {
     game.start();
-    startBtn.textContent = 'Restart';
+    start.textContent = 'Restart';
   } else {
     game.restart();
   }
