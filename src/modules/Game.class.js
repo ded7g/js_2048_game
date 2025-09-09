@@ -277,5 +277,3 @@ export default class Game {
     return false;
   }
 }
-
-module.exports = Game;
